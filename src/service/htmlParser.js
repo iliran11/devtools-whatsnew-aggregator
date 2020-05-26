@@ -1,14 +1,14 @@
-const cheerio = require("cheerio");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 const htmlParser = (html) => {
-  const $ = cheerio.load(html);
+  const document = new JSDOM(html).window.document;
   return {
-    getNodes() {
-      console;
-      return;
+    getNodes(query) {
+      return document.querySelectorAll(query);
     },
-    getNodeContent: async () => {
-      return;
+    forEach: async (nodes,callback) => {
+      nodes.each(callback);
     },
   };
 };
