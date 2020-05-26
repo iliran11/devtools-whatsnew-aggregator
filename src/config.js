@@ -1,5 +1,6 @@
-const config = {
-  baseUrl: 'https://developers.google.com/web/updates/tags/devtools-whatsnew'
-}
+const baseUrl = "https://developers.google.com";
 
-module.exports = config;
+module.exports = {
+  baseUrl,
+  articlesPage: `${baseUrl}/web/updates/tags/devtools-whatsnew`,
+};
