@@ -7,7 +7,10 @@ const htmlParser = (html) => {
     getNodes(query) {
       return document.querySelectorAll(query);
     },
-    forEach: async (nodes,callback) => {
+    getNode(query) {
+      return document.querySelector(query);
+    },
+    forEach: async (nodes, callback) => {
       nodes.each(callback);
     },
   };
