@@ -10,6 +10,7 @@
     "dotenv": "^8.2.0",
     "got": "^11.1.4",
     "jsdom": "^16.2.2",
+    "lodash.snakecase": "^4.1.1",
     "mongodb": "^3.5.8"
   },
   "scripts": {
