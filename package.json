@@ -9,7 +9,8 @@
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "got": "^11.1.4",
-    "jsdom": "^16.2.2"
+    "jsdom": "^16.2.2",
+    "mongodb": "^3.5.8"
   },
   "scripts": {
     "start": "node src/index.js"
