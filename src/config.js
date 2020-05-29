@@ -5,6 +5,7 @@ module.exports = {
   articlesPage: `${baseUrl}/web/updates/tags/devtools-whatsnew`,
   mongo: {
     url: process.env.MONGO_CONNECTION,
-    dbName: "devtools-articles",
+    dbName: "aggregator",
+    devToolsCollection: "chrome-dev-tools-articles",
   },
 };

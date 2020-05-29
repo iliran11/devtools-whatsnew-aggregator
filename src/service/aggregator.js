@@ -3,6 +3,7 @@ const HtmlParser = require("./htmlParser");
 const config = require("../config");
 const mapNodes = require("../utils/mapNodes");
 const parseArticleTitle = require("../utils/parseArticleTitle");
+const database = require("../database/database");
 
 const aggregator = async () => {
   const html = await scraper(config.articlesPage);
@@ -12,7 +13,7 @@ const aggregator = async () => {
     console.log(node.innerHTML);
     return `${config.baseUrl}/${node.href}`;
   });
-  const data = [];
+  const devToolsArticles = [];
   for (const link of links) {
     const htmlParser = HtmlParser(await scraper(link));
     const articlesRow = mapNodes(htmlParser.getNodes("h2"), (node) => {
@@ -22,14 +23,14 @@ const aggregator = async () => {
       };
     });
     const heading = htmlParser.getNode("h1");
-    data.push({
+    devToolsArticles.push({
       header: parseArticleTitle(heading.innerHTML),
       articlesLinks: articlesRow,
       page: link,
     });
-    console.log("finished", data.length);
+    console.log("finished", devToolsArticles.length);
   }
-  console.log(data);
+  database.updateDevToolsArticles(devToolsArticles);
 };
 
 module.exports = aggregator;

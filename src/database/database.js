@@ -1,11 +1,15 @@
 const MongoClient = require("mongodb").MongoClient;
 const config = require("../config");
 
-const updateArticles = async () => {
+const updateDevToolsArticles = async (articles) => {
   const client = new MongoClient(config.mongo.url);
   await client.connect();
-  console.log("Connected successfully to server");
+  const db = await client.db(config.mongo.dbName);
+  const result = await db
+    .collection(config.mongo.devToolsCollection)
+    .insertMany(articles);
+  console.log(result);
   client.close();
 };
 
-module.exports = { updateArticles };
+module.exports = { updateDevToolsArticles };
