@@ -10,27 +10,27 @@ const aggregator = async () => {
   const html = await scraper(config.articlesPage);
   const htmlParser = HtmlParser(html);
   const nodes = htmlParser.getNodes(".devsite-article-body a.button");
-  const links = mapNodes(nodes, (node) => {
+  const pageLinks = mapNodes(nodes, (node) => {
     console.log(node.innerHTML);
     return `${config.baseUrl}/${node.href}`;
   });
   const devToolsArticles = [];
-  for (const link of links) {
-    const htmlParser = HtmlParser(await scraper(link));
+  for (const pageLink of pageLinks) {
+    const htmlParser = HtmlParser(await scraper(pageLink));
     const articles = mapNodes(htmlParser.getNodes("h2"), (node) => {
-      const link = `${link}#${node.id}`;
+      const articleLink = `${pageLink}#${node.id}`
       return {
         title: node.textContent,
-        link: `${link}#${node.id}`,
-        slug: snakecase(node.textContent),
+        pageLink,
+        articleLink ,
+        slug: snakecase(articleLink),
       };
     });
-    const heading = htmlParser.getNode("h1");
-    const articleHeader = parseArticleTitle(heading.innerHTML);
+    const pageH1 = htmlParser.getNode("h1");
+    const pageHeader = parseArticleTitle(pageH1.innerHTML);
     articles.forEach((article) => {
       devToolsArticles.push({
-        articleHeader,
-        page: link,
+        pageHeader,
         ...article,
       });
     });
